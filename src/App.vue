@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <header class="header">
+      <div class="centeringContainer">
+        <h1 class="logo">Pelmanism</h1>
+      </div>
+    </header>
+    <Table />
   </div>
 </template>
 
 <script>
+import Table from './components/Table.vue'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Table
+  }
 }
 </script>
 
@@ -67,6 +77,26 @@ table {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background: radial-gradient(#ECECEC 25%, transparent 0),
+              radial-gradient(#ECECEC 25%, transparent 0);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+  width: 100vw;
+  height: 100vh;
+}
+.header {
+  background-color: black;
+  padding-bottom: 10px;
+}
+.centeringContainer {
+  width: 1135px;
+  margin: 0 auto;
+  text-align: left;
+}
+.logo {
+  font-family: 'Monofett', cursive;
+  font-size: 60px;
+  color: red;
+  display: inline-block;
 }
 </style>
