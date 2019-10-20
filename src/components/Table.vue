@@ -1,41 +1,39 @@
 <template>
     <main class="wrapper">
-        <section class="cardTable">
-            <Card v-for="(card, index) in cards"
-                :card="card" :key="index" @turn="select_card(index)" />
-        </section>
         <section class="scoreArea">
-            <p>現在の取得ペア数: {{ matched_pair_count }}</p>
+            <div class="centeringContainer">
+                <p>TRY: {{ trial_count | zero_padding }}</p>
+                <p>SCORE: {{ matched_pair_count | zero_padding }}</p>
+            </div>
         </section>
-        
+
+        <div class="centeringContainer">
+            <section class="cardTable">
+                <Card v-for="(card, index) in cards"
+                    :card="card" :key="index" @turn="select_card(index)" />
+            </section>
+        </div>
     </main>
 </template>
 
 <style lang="scss" scoped>
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
+.scoreArea {
+    background-color: #444;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    line-height: 1.8;
+    text-align: right;
+    padding: 15px 0;
+    margin-bottom: 60px;
 }
 .cardTable {
-    margin: 20px;
     display: grid;
     grid-template-columns: repeat(10, 100px);
     grid-template-rows: repeat(2, 175px);
     column-gap: 15px;
     row-gap: 15px;
 }
-.scoreArea {
-    width: 1000px;
-    margin: 30px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-}
+
 </style>
 
 <script>
@@ -52,6 +50,7 @@ export default {
         return {
             cards: [],
             selected_card_indexes: [],
+            trial_count: 0,
             matched_pair_count: 0
         }
     },
@@ -77,12 +76,13 @@ export default {
             this.cards[index].turned = true
 
             if (this.selected_card_indexes.length === 2) {
-                window.setTimeout(this.check_pair, 1500)
+                window.setTimeout(this.check_pair, 1000)
             }
         },
         check_pair: function() {
             const first_card = this.cards[this.selected_card_indexes[0]]
             const second_card = this.cards[this.selected_card_indexes[1]]
+            this.trial_count ++
 
             if (first_card.number === second_card.number) {
                 this.fix_pair()
@@ -98,6 +98,11 @@ export default {
         close_pair: function() {
             this.selected_card_indexes.map(index => this.cards[index].turned = false)
             this.selected_card_indexes = []
+        }
+    },
+    filters: {
+        zero_padding: function(value) {
+            return ('00' + value).slice(-3)
         }
     },
     created: function() {

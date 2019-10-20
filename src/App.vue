@@ -91,12 +91,11 @@ table {
 .centeringContainer {
   width: 1135px;
   margin: 0 auto;
-  text-align: left;
 }
 .logo {
   font-family: 'Monofett', cursive;
   font-size: 60px;
   color: red;
-  display: inline-block;
+  text-align: left;
 }
 </style>
