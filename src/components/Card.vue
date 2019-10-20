@@ -31,7 +31,7 @@
     transition: transform 0.1s, opacity 0.1s;
 }
 .back {
-    background: repeating-linear-gradient(90deg, #F33, #F33 10px, #A33 0, #A33 15px);
+    background: repeating-linear-gradient(90deg, #F00, #F00 5px, #F66 0, #F66 6px);
 }
 .v-enter, .v-leave-to {
     transform: rotateY(0deg);
