@@ -13,13 +13,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import CardInfo from "@/types/CardInfo";
+import CardObject from "@/models/Card";
 
 @Component({
   name: "Card"
 })
 export default class Card extends Vue {
-  @Prop() card!: CardInfo;
+  @Prop() card!: CardObject;
 
   get imagePath() {
     return require(`@/assets/cat-${this.card.number}.png`);
