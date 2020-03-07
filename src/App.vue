@@ -5,17 +5,23 @@
         <h1 class="logo">Pelmanism</h1>
       </div>
     </header>
-    <Table />
+
+    <main class="wrapper">
+      <GameInfo />
+      <CardList />
+    </main>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Table from "@/components/Table.vue";
+import GameInfo from "@/components/GameInfo.vue";
+import CardList from "@/components/CardList.vue";
 
 @Component({
   components: {
-    Table
+    GameInfo,
+    CardList
   },
   name: "App"
 })
