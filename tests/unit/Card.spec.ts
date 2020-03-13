@@ -21,4 +21,15 @@ describe("Card.vue", () => {
     expect(wrapper.find('img').exists()).toBeFalsy();
     expect(wrapper.find('.back').exists()).toBeTruthy();
   })
+
+  it("カードが裏の時にクリックすると、emitされる", () => {
+    const cardObject = {number: 1, turned: false, matched: false}
+    const wrapper = shallowMount(Card, {
+      propsData: {card: cardObject}
+    })
+
+    wrapper.find('.back').trigger('click');
+
+    expect(wrapper.emitted().turn.length).toBe(1);
+  })
 })
