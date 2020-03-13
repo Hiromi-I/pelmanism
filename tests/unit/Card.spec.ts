@@ -12,4 +12,13 @@ describe("Card.vue", () => {
     expect(wrapper.find('.back').exists()).toBeFalsy();
   })
 
+  it("カードが裏の場合は画像は表示されない", () => {
+    const cardObject = {number: 1, turned: false, matched: false}
+    const wrapper = shallowMount(Card, {
+      propsData: {card: cardObject}
+    })
+
+    expect(wrapper.find('img').exists()).toBeFalsy();
+    expect(wrapper.find('.back').exists()).toBeTruthy();
+  })
 })
