@@ -21,9 +21,9 @@ import CardList from "@/components/CardList.vue";
 @Component({
   components: {
     GameInfo,
-    CardList
+    CardList,
   },
-  name: "App"
+  name: "App",
 })
 export default class App extends Vue {}
 </script>

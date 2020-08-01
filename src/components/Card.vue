@@ -16,7 +16,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import CardObject from "@/models/Card";
 
 @Component({
-  name: "Card"
+  name: "Card",
 })
 export default class Card extends Vue {
   @Prop() card!: CardObject;
