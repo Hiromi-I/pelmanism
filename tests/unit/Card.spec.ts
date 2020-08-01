@@ -30,6 +30,6 @@ describe("Card.vue", () => {
 
     wrapper.find('.back').trigger('click');
 
-    expect(wrapper.emitted().turn.length).toBe(1);
+    expect(wrapper.emitted().turn?.length).toBe(1);
   })
 })
