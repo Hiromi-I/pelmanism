@@ -20,8 +20,8 @@ import CardListModule from "@/store/modules/card-list";
 @Component({
   name: "CardList",
   components: {
-    Card
-  }
+    Card,
+  },
 })
 export default class CardList extends Vue {
   get cardList(): CardModel[] {

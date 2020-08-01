@@ -3,7 +3,7 @@ import {
   Module,
   Mutation,
   Action,
-  getModule
+  getModule,
 } from "vuex-module-decorators";
 import store from "@/store/";
 import GameInfoModule from "@/store/modules/game-info";
@@ -26,7 +26,7 @@ export class CardListModule extends VuexModule {
       const card: Card = {
         number: i,
         turned: false,
-        matched: false
+        matched: false,
       };
       // 対になる様、各数字2つずつ用意
       cards.push(card, Object.assign({}, card));
@@ -44,7 +44,7 @@ export class CardListModule extends VuexModule {
   @Mutation
   fixCards(): void {
     this._selectedCardIndexes.map(
-      index => (this._cardList[index].matched = true)
+      (index) => (this._cardList[index].matched = true)
     );
     this._selectedCardIndexes = [];
     GameInfoModule.addMatchedPairCount();
@@ -53,7 +53,7 @@ export class CardListModule extends VuexModule {
   @Mutation
   closeCards(): void {
     this._selectedCardIndexes.map(
-      index => (this._cardList[index].turned = false)
+      (index) => (this._cardList[index].turned = false)
     );
     this._selectedCardIndexes = [];
   }
