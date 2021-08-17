@@ -1,5 +1,5 @@
-export default interface Card {
+export type CardType = {
   number: number;
   turned: boolean;
   matched: boolean;
-}
+};
