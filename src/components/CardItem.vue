@@ -12,19 +12,29 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import CardObject from "@/models/Card";
+import { defineComponent, PropType, toRefs } from "vue";
+import { CardType } from "@/types/card";
 
-@Component({
-  name: "Card",
-})
-export default class Card extends Vue {
-  @Prop() card!: CardObject;
+export default defineComponent({
+  name: "CardItem",
+  props: {
+    card: {
+      type: Object as PropType<CardType>,
+      required: true,
+    },
+  },
+  emits: [
+    "turn",
+  ],
+  setup(props) {
+    const { card } = toRefs(props);
+    const imagePath = require(`/assets/cat-${card.value.number}.png`);
 
-  get imagePath() {
-    return require(`@/assets/cat-${this.card.number}.png`);
-  }
-}
+    return {
+      imagePath,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
