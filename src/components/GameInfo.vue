@@ -8,19 +8,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { defineComponent, computed } from "vue";
 import GameInfoModule from "@/store/modules/game-info";
 
-@Component({ name: "GameInfo" })
-export default class GameInfo extends Vue {
-  get trialCount(): string {
-    return GameInfoModule.trialCount;
-  }
+export default defineComponent({
+  name: "GameInfo",
+  setup() {
+    const trialCount = computed(() => GameInfoModule.trialCount);
+    const matchedPairCount = computed(() => GameInfoModule.matchedPairCount);
 
-  get matchedPairCount(): string {
-    return GameInfoModule.matchedPairCount;
-  }
-}
+    return {
+      trialCount,
+      matchedPairCount,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
