@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
 import CardItem from "@/components/CardItem.vue";
-import CardListModule from "@/store/modules/card-list";
 
 export default defineComponent({
   name: "CardList",
@@ -22,10 +22,9 @@ export default defineComponent({
     CardItem,
   },
   setup() {
-    const cardList = CardListModule.cardList;
-    const onCardTurned = (index: number) => {
-      CardListModule.selectCard(index);
-    };
+    const store = useStore();
+    const cardList = computed(() => store.getters["cards/cardList"]);
+    const onCardTurned = (index: number) => store.dispatch("cards/selectCard", index);
 
     return {
       cardList,
