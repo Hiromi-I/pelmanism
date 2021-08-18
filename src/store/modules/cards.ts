@@ -1,85 +1,85 @@
-import {
-  VuexModule,
-  Module,
-  Mutation,
-  Action,
-  getModule,
-} from "vuex-module-decorators";
-import store from "@/store/";
-import GameInfoModule from "@/store/modules/score";
-import Card from "@/models/Card";
+import { ActionContext } from "vuex";
+import { CardType } from "@/types/card";
+import { RootState } from "@/store";
 
 const CARD_PAIR_SET = 10;
+export type CardsState = {
+  _cardList: Array<CardType>;
+  _selectedCardIndexes: Array<number>;
+};
 
-@Module({ dynamic: true, namespaced: true, store, name: "CardListModule" })
-export class CardListModule extends VuexModule {
-  private _cardList: Card[] = this.generateCardList();
-  private _selectedCardIndexes: number[] = [];
-
-  get cardList(): Card[] {
-    return this._cardList;
+const _generateInitialCardList = (): Array<CardType> => {
+  const cards: Array<CardType> = [];
+  for (let i = 0; i < CARD_PAIR_SET; i++) {
+    const card: CardType = {
+      number: i,
+      turned: false,
+      matched: false,
+    };
+    // 対になる様、各数字2つずつ用意
+    cards.push(card, Object.assign({}, card));
   }
+  cards.sort(() => Math.random() - Math.random());
+  return cards;
+}
+const state: CardsState = {
+  _cardList: _generateInitialCardList(),
+  _selectedCardIndexes: [],
+};
 
-  private generateCardList(): Card[] {
-    const cards: Card[] = [];
-    for (let i = 0; i < CARD_PAIR_SET; i++) {
-      const card: Card = {
-        number: i,
-        turned: false,
-        matched: false,
-      };
-      // 対になる様、各数字2つずつ用意
-      cards.push(card, Object.assign({}, card));
-    }
-    cards.sort(() => Math.random() - Math.random());
-    return cards;
-  }
+const getters = {
+  cardList: (state: CardsState): Array<CardType> => state._cardList,
+};
 
-  @Mutation
-  turnCard(index: number): void {
-    this._cardList[index].turned = true;
-    this._selectedCardIndexes.push(index);
-  }
-
-  @Mutation
-  fixCards(): void {
-    this._selectedCardIndexes.map(
-      (index) => (this._cardList[index].matched = true)
+const mutations = {
+  turnCard: (state: CardsState, index: number): void => {
+    state._cardList[index].turned = true;
+    state._selectedCardIndexes.push(index);
+  },
+  fixCards: (state: CardsState): void => {
+    state._selectedCardIndexes.map(
+      (index) => (state._cardList[index].matched = true)
     );
-    this._selectedCardIndexes = [];
-    GameInfoModule.addMatchedPairCount();
-  }
-
-  @Mutation
-  closeCards(): void {
-    this._selectedCardIndexes.map(
-      (index) => (this._cardList[index].turned = false)
+    state._selectedCardIndexes = [];
+  },
+  closeCards: (state: CardsState): void => {
+    state._selectedCardIndexes.map(
+      (index) => (state._cardList[index].turned = false)
     );
-    this._selectedCardIndexes = [];
+    state._selectedCardIndexes = [];
   }
+};
 
-  @Action
-  selectCard(index: number): void {
-    if (this._selectedCardIndexes.length > 1) return;
-    this.turnCard(index);
+const actions = {
+  selectCard: ({ state, commit, dispatch }: ActionContext<CardsState, RootState>, index: number): void => {
+    if (state._selectedCardIndexes.length > 1) return;
+    commit("turnCard", index);
 
-    if (this._selectedCardIndexes.length === 2) {
-      window.setTimeout(() => this.context.dispatch("checkPair"), 1000);
+    if (state._selectedCardIndexes.length === 2) {
+      window.setTimeout(() => dispatch("checkPair"), 1000);
     }
-  }
-
-  @Action({ rawError: true })
-  checkPair(): void {
-    const firstCard = this._cardList[this._selectedCardIndexes[0]];
-    const secondCard = this._cardList[this._selectedCardIndexes[1]];
-    GameInfoModule.addTrialCount();
+  },
+  checkPair: ({ state, commit }: ActionContext<CardsState, RootState>): void => {
+    const firstCard = state._cardList[state._selectedCardIndexes[0]];
+    const secondCard = state._cardList[state._selectedCardIndexes[1]];
+    commit("score/addTrialCount");
 
     if (firstCard.number === secondCard.number) {
-      this.fixCards();
+      commit("fixCards");
     } else {
-      this.closeCards();
+      commit("closeCards");
     }
-  }
-}
+  },
+  fixCards: ({ commit }: ActionContext<CardsState, RootState>): void => {
+    commit("fixCards");
+    commit("score/addMatchedPairCount");
+  },
+};
 
-export default getModule(CardListModule);
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
+};
