@@ -9,13 +9,14 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import GameInfoModule from "@/store/modules/game-info";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "GameInfo",
   setup() {
-    const trialCount = computed(() => GameInfoModule.trialCount);
-    const matchedPairCount = computed(() => GameInfoModule.matchedPairCount);
+    const store = useStore();
+    const trialCount = computed(() => store.getters["score/trialCount"]);
+    const matchedPairCount = computed(() => store.getters["score/matchedPairCount"]);
 
     return {
       trialCount,
