@@ -1,4 +1,4 @@
-type ScoreState = {
+export type ScoreState = {
   _trialCount: number;
   _matchedPairCount: number;
 };
