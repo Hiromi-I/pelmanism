@@ -59,20 +59,20 @@ const actions = {
       window.setTimeout(() => dispatch("checkPair"), 1000);
     }
   },
-  checkPair: ({ state, commit }: ActionContext<CardsState, RootState>): void => {
+  checkPair: ({ state, commit, dispatch }: ActionContext<CardsState, RootState>): void => {
     const firstCard = state._cardList[state._selectedCardIndexes[0]];
     const secondCard = state._cardList[state._selectedCardIndexes[1]];
-    commit("score/addTrialCount");
+    commit("score/addTrialCount", null, { root: true });
 
     if (firstCard.number === secondCard.number) {
-      commit("fixCards");
+      dispatch("fixCards");
     } else {
       commit("closeCards");
     }
   },
   fixCards: ({ commit }: ActionContext<CardsState, RootState>): void => {
     commit("fixCards");
-    commit("score/addMatchedPairCount");
+    commit("score/addMatchedPairCount", null, { root: true });
   },
 };
 
