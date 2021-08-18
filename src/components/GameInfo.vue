@@ -26,7 +26,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .scoreArea {
   background-color: #444;
   color: white;

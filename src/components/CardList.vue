@@ -34,7 +34,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .cardTable {
   display: grid;
   grid-template-columns: repeat(10, 100px);

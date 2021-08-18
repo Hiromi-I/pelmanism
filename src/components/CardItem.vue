@@ -37,17 +37,15 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
-@mixin size() {
+<style lang="css" scoped>
+.card {
   width: 100px;
   height: 175px;
-}
-.card {
-  @include size();
   position: relative;
 }
 .content {
-  @include size();
+  width: 100px;
+  height: 175px;;
   margin: 0;
   border-radius: 5px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
