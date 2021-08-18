@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, toRefs } from "vue";
+import { defineComponent, PropType, toRefs, computed } from "vue";
 import { CardType } from "@/types/card";
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
   ],
   setup(props) {
     const { card } = toRefs(props);
-    const imagePath = require(`/assets/cat-${card.value.number}.png`);
+    const imagePath = computed(() => require(`@/assets/cat-${card.value.number}.png`));
 
     return {
       imagePath,
