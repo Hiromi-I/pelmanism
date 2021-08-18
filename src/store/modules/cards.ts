@@ -6,7 +6,7 @@ import {
   getModule,
 } from "vuex-module-decorators";
 import store from "@/store/";
-import GameInfoModule from "@/store/modules/game-info";
+import GameInfoModule from "@/store/modules/score";
 import Card from "@/models/Card";
 
 const CARD_PAIR_SET = 10;
