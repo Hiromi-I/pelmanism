@@ -1,33 +1,27 @@
-import {
-  VuexModule,
-  Module,
-  Mutation,
-  getModule,
-} from "vuex-module-decorators";
-import store from "@/store/";
+type ScoreState = {
+  _trialCount: number;
+  _matchedPairCount: number;
+};
 
-@Module({ dynamic: true, store, namespaced: true, name: "GameInfoModule" })
-export class GameInfoModule extends VuexModule {
-  private _trialCount = 0;
-  private _matchedPairCount = 0;
+const state: ScoreState = {
+  _trialCount: 0,
+  _matchedPairCount: 0,
+};
 
-  get trialCount(): string {
-    return ("00" + String(this._trialCount)).slice(-3);
-  }
+const get0paddingNumber = (num: number): string => ("00" + String(num)).slice(-3);
+const getters = {
+  trialCount: (state: ScoreState) => get0paddingNumber(state._trialCount),
+  matchedPairCount: (state: ScoreState) => get0paddingNumber(state._matchedPairCount),
+};
 
-  get matchedPairCount(): string {
-    return ("00" + String(this._matchedPairCount)).slice(-3);
-  }
+const mutations = {
+  addTrialCount: (state: ScoreState) => state._trialCount += 1,
+  addMatchedPairCount: (state: ScoreState) => state._matchedPairCount += 1,
+};
 
-  @Mutation
-  addTrialCount(): void {
-    this._trialCount += 1;
-  }
-
-  @Mutation
-  addMatchedPairCount(): void {
-    this._matchedPairCount += 1;
-  }
-}
-
-export default getModule(GameInfoModule);
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+};
