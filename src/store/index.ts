@@ -1,6 +1,6 @@
-import { createStore } from "vuex";
-import cards, { CardsState } from "./modules/cards";
-import score, { ScoreState } from "./modules/score";
+import { RootState } from "@/types/store";
+import cards from "./modules/cards";
+import score from "./modules/score";
 
 export type RootState = {
   cards: CardsState;

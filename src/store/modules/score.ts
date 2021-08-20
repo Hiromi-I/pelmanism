@@ -1,7 +1,4 @@
-export type ScoreState = {
-  _trialCount: number;
-  _matchedPairCount: number;
-};
+import { ScoreState } from "@/types/store";
 
 const state: ScoreState = {
   _trialCount: 0,

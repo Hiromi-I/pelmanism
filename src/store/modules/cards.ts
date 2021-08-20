@@ -1,12 +1,8 @@
 import { ActionContext } from "vuex";
 import { CardType } from "@/types/card";
-import { RootState } from "@/store";
+import { RootState, CardsState } from "@/types/store";
 
 const CARD_PAIR_SET = 10;
-export type CardsState = {
-  _cardList: Array<CardType>;
-  _selectedCardIndexes: Array<number>;
-};
 
 const _generateInitialCardList = (): Array<CardType> => {
   const cards: Array<CardType> = [];
