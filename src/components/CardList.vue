@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { useStore } from "vuex";
+import { useStore } from "@/store";
 import CardItem from "@/components/CardItem.vue";
 
 export default defineComponent({
