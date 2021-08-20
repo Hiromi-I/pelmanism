@@ -14,21 +14,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import GameInfo from "@/components/GameInfo.vue";
 import CardList from "@/components/CardList.vue";
 
-@Component({
+export default {
+  name: "App",
   components: {
     GameInfo,
-    CardList,
+    CardList, 
   },
-  name: "App",
-})
-export default class App extends Vue {}
+};
 </script>
 
-<style>
+<style lang="css">
 /*  http://meyerweb.com/eric/tools/css/reset/ 
     v2.0 | 20110126
     License: none (public domain)

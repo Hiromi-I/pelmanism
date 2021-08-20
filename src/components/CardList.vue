@@ -1,7 +1,7 @@
 <template>
   <div class="centeringContainer">
     <section class="cardTable">
-      <Card
+      <CardItem
         v-for="(card, index) in cardList"
         :card="card"
         :key="index"
@@ -12,29 +12,29 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Card from "@/components/Card.vue";
-import CardModel from "@/models/Card";
-import CardListModule from "@/store/modules/card-list";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store";
+import CardItem from "@/components/CardItem.vue";
 
-@Component({
+export default defineComponent({
   name: "CardList",
   components: {
-    Card,
+    CardItem,
   },
-})
-export default class CardList extends Vue {
-  get cardList(): CardModel[] {
-    return CardListModule.cardList;
-  }
+  setup() {
+    const store = useStore();
+    const cardList = computed(() => store.getters["cards/cardList"]);
+    const onCardTurned = (index: number) => store.dispatch("cards/selectCard", index);
 
-  onCardTurned(index: number): void {
-    CardListModule.selectCard(index);
-  }
-}
+    return {
+      cardList,
+      onCardTurned,
+    };
+  },
+});
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .cardTable {
   display: grid;
   grid-template-columns: repeat(10, 100px);

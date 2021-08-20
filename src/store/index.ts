@@ -1,6 +1,17 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import { InjectionKey } from "vue";
+import { createStore, Store, useStore as baseUseStore } from "vuex";
 
-Vue.use(Vuex);
+import { RootState } from "@/types/store";
+import cards from "./modules/cards";
+import score from "./modules/score";
 
-export default new Vuex.Store({});
+export const key: InjectionKey<Store<RootState>> = Symbol();
+
+export const store =  createStore<RootState>({
+  modules: {
+    cards,
+    score,
+  },
+});
+
+export const useStore = () => baseUseStore(key);

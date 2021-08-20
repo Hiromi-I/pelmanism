@@ -8,22 +8,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import GameInfoModule from "@/store/modules/game-info";
+import { defineComponent, computed } from "vue";
+import { useStore } from "@/store";
 
-@Component({ name: "GameInfo" })
-export default class GameInfo extends Vue {
-  get trialCount(): string {
-    return GameInfoModule.trialCount;
-  }
+export default defineComponent({
+  name: "GameInfo",
+  setup() {
+    const store = useStore();
+    const trialCount = computed(() => store.getters["score/trialCount"]);
+    const matchedPairCount = computed(() => store.getters["score/matchedPairCount"]);
 
-  get matchedPairCount(): string {
-    return GameInfoModule.matchedPairCount;
-  }
-}
+    return {
+      trialCount,
+      matchedPairCount,
+    };
+  },
+});
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .scoreArea {
   background-color: #444;
   color: white;

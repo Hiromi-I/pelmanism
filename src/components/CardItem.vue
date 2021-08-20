@@ -12,32 +12,40 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import CardObject from "@/models/Card";
+import { defineComponent, PropType, toRefs, computed } from "vue";
+import { CardType } from "@/types/card";
 
-@Component({
-  name: "Card",
-})
-export default class Card extends Vue {
-  @Prop() card!: CardObject;
+export default defineComponent({
+  name: "CardItem",
+  props: {
+    card: {
+      type: Object as PropType<CardType>,
+      required: true,
+    },
+  },
+  emits: [
+    "turn",
+  ],
+  setup(props) {
+    const { card } = toRefs(props);
+    const imagePath = computed(() => require(`@/assets/cat-${card.value.number}.png`));
 
-  get imagePath() {
-    return require(`@/assets/cat-${this.card.number}.png`);
-  }
-}
+    return {
+      imagePath,
+    };
+  },
+});
 </script>
 
-<style lang="scss" scoped>
-@mixin size() {
+<style lang="css" scoped>
+.card {
   width: 100px;
   height: 175px;
-}
-.card {
-  @include size();
   position: relative;
 }
 .content {
-  @include size();
+  width: 100px;
+  height: 175px;;
   margin: 0;
   border-radius: 5px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
