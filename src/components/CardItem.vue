@@ -63,13 +63,13 @@ export default defineComponent({
     #f66 6px
   );
 }
-.v-enter,
+.v-enter-from,
 .v-leave-to {
   transform: rotateY(0deg);
   opacity: 0;
 }
 .v-enter-to,
-.v-leave {
+.v-leave-from {
   transform: rotateY(90deg);
   opacity: 1;
 }
