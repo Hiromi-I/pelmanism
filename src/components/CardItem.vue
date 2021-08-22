@@ -23,12 +23,12 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: [
-    "turn",
-  ],
+  emits: ["turn"],
   setup(props) {
     const { card } = toRefs(props);
-    const imagePath = computed(() => require(`@/assets/cat-${card.value.number}.png`));
+    const imagePath = computed(() =>
+      require(`@/assets/cat-${card.value.number}.png`)
+    );
 
     return {
       imagePath,
@@ -45,7 +45,7 @@ export default defineComponent({
 }
 .content {
   width: 100px;
-  height: 175px;;
+  height: 175px;
   margin: 0;
   border-radius: 5px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);

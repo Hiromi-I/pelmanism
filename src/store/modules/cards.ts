@@ -17,7 +17,7 @@ const _generateInitialCardList = (): Array<CardType> => {
   }
   cards.sort(() => Math.random() - Math.random());
   return cards;
-}
+};
 const state: CardsState = {
   _cardList: _generateInitialCardList(),
   _selectedCardIndexes: [],
@@ -43,11 +43,14 @@ const mutations = {
       (index) => (state._cardList[index].turned = false)
     );
     state._selectedCardIndexes = [];
-  }
+  },
 };
 
 const actions = {
-  selectCard: ({ state, commit, dispatch }: ActionContext<CardsState, RootState>, index: number): void => {
+  selectCard: (
+    { state, commit, dispatch }: ActionContext<CardsState, RootState>,
+    index: number
+  ): void => {
     if (state._selectedCardIndexes.length > 1) return;
     commit("turnCard", index);
 
@@ -55,7 +58,11 @@ const actions = {
       window.setTimeout(() => dispatch("checkPair"), 1000);
     }
   },
-  checkPair: ({ state, commit, dispatch }: ActionContext<CardsState, RootState>): void => {
+  checkPair: ({
+    state,
+    commit,
+    dispatch,
+  }: ActionContext<CardsState, RootState>): void => {
     const firstCard = state._cardList[state._selectedCardIndexes[0]];
     const secondCard = state._cardList[state._selectedCardIndexes[1]];
     commit("score/addTrialCount", null, { root: true });

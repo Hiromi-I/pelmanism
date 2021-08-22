@@ -7,11 +7,11 @@ import score from "./modules/score";
 
 export const key: InjectionKey<Store<RootState>> = Symbol();
 
-export const store =  createStore<RootState>({
+export const store = createStore<RootState>({
   modules: {
     cards,
     score,
   },
 });
 
-export const useStore = () => baseUseStore(key);
+export const useStore = (): Store<RootState> => baseUseStore(key);

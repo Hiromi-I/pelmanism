@@ -16,7 +16,9 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const trialCount = computed(() => store.getters["score/trialCount"]);
-    const matchedPairCount = computed(() => store.getters["score/matchedPairCount"]);
+    const matchedPairCount = computed(
+      () => store.getters["score/matchedPairCount"]
+    );
 
     return {
       trialCount,

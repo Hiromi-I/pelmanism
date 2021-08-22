@@ -21,7 +21,7 @@ export default {
   name: "App",
   components: {
     GameInfo,
-    CardList, 
+    CardList,
   },
 };
 </script>
