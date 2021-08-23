@@ -1,8 +1,22 @@
 <template>
   <section class="scoreArea">
     <div class="centeringContainer">
-      <p>TRY: {{ trialCount }}</p>
-      <p>SCORE: {{ matchedPairCount }}</p>
+      <p class="scoreText">
+        TRY:
+        <transition mode="out-in">
+          <span :key="trialCount" class="scoreNumber">
+            {{ trialCount }}
+          </span>
+        </transition>
+      </p>
+      <p class="scoreText">
+        SCORE:
+        <transition mode="out-in">
+          <span :key="matchedPairCount" class="scoreNumber">
+            {{ matchedPairCount }}
+          </span>
+        </transition>
+      </p>
     </div>
   </section>
 </template>
