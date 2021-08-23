@@ -52,4 +52,16 @@ export default defineComponent({
   padding: 15px 0;
   margin-bottom: 60px;
 }
+.v-enter-from {
+  font-size: 20px;
+  opacity: 0;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter-to,
+.v-leave-from {
+  font-size: 16px;
+  opacity: 1;
+}
 </style>
