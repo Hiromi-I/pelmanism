@@ -1,8 +1,22 @@
 <template>
   <section class="scoreArea">
     <div class="centeringContainer">
-      <p>TRY: {{ trialCount }}</p>
-      <p>SCORE: {{ matchedPairCount }}</p>
+      <p class="scoreText">
+        TRY:
+        <transition mode="out-in">
+          <span :key="trialCount" class="scoreNumber">
+            {{ trialCount }}
+          </span>
+        </transition>
+      </p>
+      <p class="scoreText">
+        SCORE:
+        <transition mode="out-in">
+          <span :key="matchedPairCount" class="scoreNumber">
+            {{ matchedPairCount }}
+          </span>
+        </transition>
+      </p>
     </div>
   </section>
 </template>
@@ -37,5 +51,27 @@ export default defineComponent({
   text-align: right;
   padding: 15px 0;
   margin-bottom: 60px;
+}
+.scoreText {
+  position: relative;
+  padding-right: 60px;
+}
+.scoreNumber {
+  transition: font-size 0.2s, opacity 0.2s;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.v-enter-from {
+  font-size: 20px;
+  opacity: 0;
+}
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter-to,
+.v-leave-from {
+  font-size: 16px;
+  opacity: 1;
 }
 </style>
