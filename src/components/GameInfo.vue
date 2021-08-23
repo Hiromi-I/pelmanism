@@ -52,6 +52,16 @@ export default defineComponent({
   padding: 15px 0;
   margin-bottom: 60px;
 }
+.scoreText {
+  position: relative;
+  padding-right: 60px;
+}
+.scoreNumber {
+  transition: font-size 0.2s, opacity 0.2s;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 .v-enter-from {
   font-size: 20px;
   opacity: 0;
